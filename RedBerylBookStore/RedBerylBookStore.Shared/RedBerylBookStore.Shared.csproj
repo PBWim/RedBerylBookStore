@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RedBerylBookStore.DataModels\RedBerylBookStore.DataModels.csproj" />
+    <ProjectReference Include="..\RedBerylBookStore.Service\RedBerylBookStore.Service.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,11 +1,22 @@
 namespace RedBerylBookStore
 {
+    using System;
+    using AutoMapper;
+    using Common.Mapper;
+    using Data;
+    using DataModels;
+    using Helpers;
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.AngularCli;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Shared.Ioc;
 
     public class Startup
     {
@@ -18,7 +29,51 @@ namespace RedBerylBookStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+            });
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<User>(options =>
+            {
+                options.User = new UserOptions
+                {
+                    RequireUniqueEmail = true
+                };
+                options.Password = new PasswordOptions
+                {
+                    RequireDigit = true,
+                    RequiredLength = 10,
+                    RequireLowercase = true,
+                    RequireUppercase = true,
+                    RequireNonAlphanumeric = true,
+                    RequiredUniqueChars = 0
+                };
+                options.Lockout = new LockoutOptions
+                {
+                    DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15),
+                    AllowedForNewUsers = true,
+                    MaxFailedAccessAttempts = 5
+                };
+                options.SignIn = new SignInOptions
+                {
+                    RequireConfirmedEmail = false,
+                    RequireConfirmedPhoneNumber = false
+                };
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+            services.RegisterServices();
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -40,6 +95,10 @@ namespace RedBerylBookStore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseAuthentication();
+            
+            app.UpdateDatabase();
 
             app.UseMvc(routes =>
             {
