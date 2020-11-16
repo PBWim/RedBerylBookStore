@@ -1,6 +1,7 @@
 namespace RedBerylBookStore
 {
     using System;
+    using System.IO;
     using AutoMapper;
     using Common.Mapper;
     using Data;
@@ -16,6 +17,7 @@ namespace RedBerylBookStore
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Shared.Ioc;
 
     public class Startup
@@ -80,7 +82,7 @@ namespace RedBerylBookStore
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -91,6 +93,9 @@ namespace RedBerylBookStore
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            var path = Directory.GetCurrentDirectory();
+            loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
 
             app.UseHttpsRedirection();
 
