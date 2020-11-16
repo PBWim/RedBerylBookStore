@@ -31,7 +31,8 @@
                     PhoneNumberConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString("D"),
                     Role = UserRole.Administrator,
-                    LastModifiedBy = 0,
+                    IsActive = true,
+                    LastModifiedBy = 1,
                     LastModifiedOn = DateTime.UtcNow,
                 };
                 var password = new PasswordHasher<User>();

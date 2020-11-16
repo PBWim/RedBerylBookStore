@@ -16,6 +16,7 @@
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +25,12 @@
                 optionsBuilder.UseSqlServer(connectionString, builder => builder.EnableRetryOnFailure())
                     .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasQueryFilter(x => x.IsActive);
+            modelBuilder.Entity<Book>().HasQueryFilter(x => x.IsActive);
         }
     }
 }

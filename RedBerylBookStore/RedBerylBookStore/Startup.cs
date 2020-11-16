@@ -93,7 +93,9 @@ namespace RedBerylBookStore
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
