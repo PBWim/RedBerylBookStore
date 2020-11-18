@@ -1,2 +1,6 @@
 <h1>Hello...!</h1>
 <p>Welcome to RedBeryl Book Store</p>
+
+<div class="alert alert-success" *ngIf="isLoggedIn()">
+  {{ name }} Logged in as {{ role }}.
+</div>

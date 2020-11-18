@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TokenStorageService } from '../services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  constructor(private tokenStorage: TokenStorageService, private router: Router) { }
+
   isExpanded = false;
 
   collapse() {
@@ -14,5 +18,14 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  isLoggedIn(): boolean {
+    return this.tokenStorage.getToken() == null ? false : true;
+  }
+
+  logout() {
+    this.tokenStorage.signOut();
+    this.router.navigate(['/']) 
   }
 }
