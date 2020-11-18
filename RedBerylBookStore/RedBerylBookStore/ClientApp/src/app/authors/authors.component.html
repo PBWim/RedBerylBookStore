@@ -1,10 +1,10 @@
 <div class="col-md-12">
   <h5>View Authors in RedBeryl Book Store...</h5>
-  <div class="card card-container p-3">
-    <p *ngIf="!authors"><em>Loading...</em></p>
+  <p *ngIf="!authors"><em>Loading...</em></p>
 
+  <div class="card card-container p-3" *ngIf="authors">
     <div>
-      <table class='table' *ngIf="authors">
+      <table class='table'>
         <thead>
           <tr>
             <th hidden>Id</th>
@@ -31,14 +31,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-
-    <div class="form-group">
-      <div class="alert alert-danger"
-           role="alert"
-           *ngIf="isError">
-        Get Authors failed: {{ errorMessage }}
-      </div>
     </div>
   </div>
 </div>

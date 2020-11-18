@@ -11,7 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
-    using RedBerylBookStore.ServiceModels;
+    using ServiceModels;
     using DO = DataModels;
 
     public class UserRepository : IUserRepository

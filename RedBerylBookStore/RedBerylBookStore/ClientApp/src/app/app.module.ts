@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { BooksComponent } from './books/books.component';
+import { NewBookComponent } from './new-book/new-book.component';
 
 import { authInterceptorProviders } from './Helpers/auth.interceptor';
 
@@ -27,7 +28,8 @@ import { authInterceptorProviders } from './Helpers/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     AuthorsComponent,
-    BooksComponent
+    BooksComponent,
+    NewBookComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,6 +42,7 @@ import { authInterceptorProviders } from './Helpers/auth.interceptor';
       { path: 'register', component: RegisterComponent },
       { path: 'view-authors', component: AuthorsComponent },
       { path: 'view-books', component: BooksComponent },
+      { path: 'new-book', component: NewBookComponent },
     ])
   ],
   providers: [authInterceptorProviders],

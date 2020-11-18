@@ -15,8 +15,10 @@
             services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBookService, BookService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
         }
     }
 }

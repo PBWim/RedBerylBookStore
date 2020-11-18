@@ -1,7 +1,36 @@
 <div class="col-md-12">
   <h5>View your Books in RedBeryl Book Store...</h5>
-  <div class="card card-container p-3">
+  <p *ngIf="!books"><em>Loading...</em></p>
 
+  <p>
+    <a [routerLink]="['/new-book']" class="btn btn-primary">Add New Book</a>
+  </p>
+
+  <div class="card card-container p-3" *ngIf="books">
+    <div>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th hidden>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price ($)</th>
+            <th>Author</th>
+            <th>Author Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books">
+            <td hidden>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.price }}</td>
+            <td>{{ book.user.firstName }} {{ book.user.lastName }}</td>
+            <td>{{ book.user.email }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
   </div>
-
 </div>

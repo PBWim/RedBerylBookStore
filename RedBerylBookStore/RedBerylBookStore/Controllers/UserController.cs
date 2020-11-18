@@ -44,12 +44,12 @@
             if (userId <= 0)
             {
                 this.logger.LogWarning($"The Account {nameof(this.ActivateAuthor)} action has been accessed with Invalid User Id : {userId}");
-                return BadRequest("Invalid User Id");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Id"));
             }
 
             this.logger.LogInformation($"The User {nameof(this.ActivateAuthor)} action has been accessed");
             var result = await this.userService.Update(userId, true);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 this.logger.LogInformation($"The User : {userId} action has been activated");
                 return Ok(ApiResponse.OK(true));
@@ -66,7 +66,7 @@
             if (userId <= 0)
             {
                 this.logger.LogWarning($"The Account {nameof(this.DeactivateAuthor)} action has been accessed with Invalid User Id : {userId}");
-                return BadRequest("Invalid User Id");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Id"));
             }
 
             this.logger.LogInformation($"The User {nameof(this.DeactivateAuthor)} action has been accessed");

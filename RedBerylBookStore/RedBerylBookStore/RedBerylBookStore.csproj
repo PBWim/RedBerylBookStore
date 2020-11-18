@@ -30,10 +30,12 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\Helpers\auth.interceptor.ts" />
-    <None Remove="ClientApp\src\app\Models\author.data.ts" />
-    <None Remove="ClientApp\src\app\Services\auth.service.ts" />
-    <None Remove="ClientApp\src\app\Services\token-storage.service.ts" />
-    <None Remove="ClientApp\src\app\Services\user.service.ts" />
+    <None Remove="ClientApp\src\app\models\author.data.ts" />
+    <None Remove="ClientApp\src\app\models\book.data.ts" />
+    <None Remove="ClientApp\src\app\services\auth.service.ts" />
+    <None Remove="ClientApp\src\app\services\books.service.ts" />
+    <None Remove="ClientApp\src\app\services\token-storage.service.ts" />
+    <None Remove="ClientApp\src\app\services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,10 +44,12 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\Helpers\auth.interceptor.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Models\author.data.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Services\auth.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Services\token-storage.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Services\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\author.data.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\book.data.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\books.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\token-storage.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>

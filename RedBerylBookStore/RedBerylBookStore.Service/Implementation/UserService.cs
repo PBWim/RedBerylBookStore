@@ -5,7 +5,7 @@
     using Data.Contract;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
-    using RedBerylBookStore.ServiceModels;
+    using ServiceModels;
     using Service.Contract;
 
     public class UserService : IUserService

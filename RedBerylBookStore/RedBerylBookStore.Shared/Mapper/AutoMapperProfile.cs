@@ -9,6 +9,8 @@
     {
         public AutoMapperProfile()
         {
+            CreateMap<BookModel, BO.Book>().ReverseMap();
+
             CreateMap<UserModel, BO.User>().ReverseMap();
 
             CreateMap<BO.Book, DO.Book>().ReverseMap();

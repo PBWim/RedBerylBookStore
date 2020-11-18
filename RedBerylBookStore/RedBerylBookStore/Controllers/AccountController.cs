@@ -72,7 +72,7 @@
             if (model == null)
             {
                 this.logger.LogWarning($"The Account {nameof(this.Register)} action has been accessed with Invalid User Model");
-                return BadRequest("Invalid User Model");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Model"));
             }
 
             if (ModelState.IsValid)
@@ -92,7 +92,7 @@
             }
 
             this.logger.LogWarning($"The Account {nameof(this.Register)} action has been accessed with Invalid User Model");
-            return BadRequest("Invalid User Model");
+            return BadRequest(ApiResponse.BadRequest("Invalid User Model"));
         }
 
         private string GenerateJSONWebToken(User userInfo)
