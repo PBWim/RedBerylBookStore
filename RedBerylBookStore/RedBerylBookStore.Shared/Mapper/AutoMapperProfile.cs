@@ -1,6 +1,7 @@
 ﻿namespace RedBerylBookStore.Common.Mapper
 {
     using AutoMapper;
+    using Shared.Domain;
     using BO = ServiceModels;
     using DO = DataModels;
 
@@ -8,7 +9,15 @@
     {
         public AutoMapperProfile()
         {
-            CreateMap<BO.User, DO.User>().ReverseMap();
+            CreateMap<UserModel, BO.User>().ReverseMap();
+
+            CreateMap<BO.Book, DO.Book>().ReverseMap();
+
+            CreateMap<BO.User, DO.User>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.FirstName}.{src.LastName}"))
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
+                .ForMember(des => des.Books, opt => opt.MapFrom(src => src.Books))
+                .ReverseMap();
         }
     }
 }

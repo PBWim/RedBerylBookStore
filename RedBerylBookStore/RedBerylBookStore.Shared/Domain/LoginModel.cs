@@ -1,4 +1,4 @@
-﻿namespace RedBerylBookStore.Models
+﻿namespace RedBerylBookStore.Shared.Domain
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +6,7 @@
     {
         [Required(ErrorMessage = "The Email Address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "The Password is required")]
         public string Password { get; set; }

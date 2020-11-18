@@ -3,19 +3,22 @@
     using System;
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
     using AutoMapper;
+    using Common.Enums;
+    using Helpers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
-    using Models;
+    using ServiceModels;
     using Service.Contract;
+    using Shared.Domain;
 
-    [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -35,29 +38,62 @@
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("api/Account/Login")]
         public async Task<ActionResult> Login([FromBody]LoginModel model)
         {
             if (model == null)
             {
                 this.logger.LogWarning($"The Account {nameof(this.Login)} action has been accessed with Invalid User Model");
-                return BadRequest("Invalid User Model");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Model"));
             }
 
             if (ModelState.IsValid)
             {
                 this.logger.LogInformation($"The Account {nameof(this.Login)} action has been accessed with User Model : {model}");
-                var result = await this.userService.SignIn(model.EmailAddress, model.Password);
+                var result = await this.userService.SignIn(model.Email, model.Password);
                 if (result)
                 {
                     this.logger.LogInformation($"JWT Token created User Model : {model}");
+                    var user = this.userService.Get(true).FirstOrDefault(x => x.Email == model.Email);
                     var tokenString = this.GenerateJSONWebToken(model);
-                    return Ok(tokenString);
+                    return Ok(ApiResponse.OK(new { accessToken = tokenString, loggedUser = user }));
                 }
                 this.logger.LogWarning($"Invalid User Login of User Model : {model}");
-                return BadRequest("Invalid User Login");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Login"));
             }
 
             this.logger.LogWarning($"The Account {nameof(this.Login)} action has been accessed with Invalid User Model");
+            return BadRequest(ApiResponse.BadRequest("Invalid User Model"));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("api/Account/Register")]
+        public async Task<ActionResult> Register([FromBody]UserModel model)
+        {
+            if (model == null)
+            {
+                this.logger.LogWarning($"The Account {nameof(this.Register)} action has been accessed with Invalid User Model");
+                return BadRequest("Invalid User Model");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var userObj = this.mapper.Map<User>(model);
+                var result = await this.userService.Create(userObj);
+                if (result.Succeeded)
+                {
+                    this.logger.LogInformation($"User created successfully : {userObj}");
+                    return this.Ok(true);
+                }
+                else if (result.Errors.Any())
+                {
+                    this.logger.LogWarning($"User did not get created : {userObj}");
+                    return this.BadRequest(result.Errors);
+                }
+            }
+
+            this.logger.LogWarning($"The Account {nameof(this.Register)} action has been accessed with Invalid User Model");
             return BadRequest("Invalid User Model");
         }
 

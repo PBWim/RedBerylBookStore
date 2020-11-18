@@ -29,7 +29,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\Helpers\auth.interceptor.ts" />
+    <None Remove="ClientApp\src\app\Services\auth.service.ts" />
+    <None Remove="ClientApp\src\app\Services\token-storage.service.ts" />
+    <None Remove="ClientApp\src\app\Services\user.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RedBerylBookStore.Shared\RedBerylBookStore.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\Helpers\auth.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\token-storage.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\user.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
