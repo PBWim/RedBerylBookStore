@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\Helpers\auth.interceptor.ts" />
     <None Remove="ClientApp\src\app\models\author.data.ts" />
     <None Remove="ClientApp\src\app\models\book.data.ts" />
     <None Remove="ClientApp\src\app\services\auth.service.ts" />
@@ -43,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\Helpers\auth.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\author.data.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\book.data.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\auth.service.ts" />

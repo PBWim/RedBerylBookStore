@@ -8,23 +8,17 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { BooksComponent } from './books/books.component';
 import { NewBookComponent } from './new-book/new-book.component';
 
-import { authInterceptorProviders } from './Helpers/auth.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     LoginComponent,
     RegisterComponent,
     AuthorsComponent,
@@ -45,7 +39,7 @@ import { authInterceptorProviders } from './Helpers/auth.interceptor';
       { path: 'new-book', component: NewBookComponent },
     ])
   ],
-  providers: [authInterceptorProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,10 +7,10 @@ import { BooksService } from '../services/books.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit{
+  public books: BookData[];
   role: string;
   name: '';
   searchText: '';
-  public books: BookData[];
 
   constructor(private tokenStorage: TokenStorageService, private booksService: BooksService) { }
 
