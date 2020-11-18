@@ -29,10 +29,10 @@
         [HttpGet]
         [AllowAnonymous]
         [Route("api/Books/GetBooks")]
-        public IActionResult GetBooks()
+        public IActionResult GetBooks([FromQuery] string search)
         {
             this.logger.LogInformation($"The Books {nameof(this.GetBooks)} action has been accessed");
-            var books = this.bookService.Get();
+            var books = this.bookService.Get(search);
             var booksObj = books.ProjectTo<BookModel>(this.mapper.ConfigurationProvider);
             return Ok(ApiResponse.OK(new { booksObj }));
         }

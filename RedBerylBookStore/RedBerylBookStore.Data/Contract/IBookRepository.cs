@@ -7,6 +7,8 @@
     {
         IQueryable<BO.Book> Get();
 
+        IQueryable<BO.Book> Get(string search);
+
         BO.Book Create(BO.Book book);
     }
 }

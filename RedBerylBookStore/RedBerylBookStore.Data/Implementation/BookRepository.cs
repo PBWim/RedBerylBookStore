@@ -31,6 +31,16 @@
             return booksList;
         }
 
+        public IQueryable<Book> Get(string search)
+        {
+            search = search.Trim();
+            this.logger.LogInformation($"Get books on {nameof(Get)} in BookRepository with filter : {search}");
+            var books = this.context.Books.Where(x=> x.Title.StartsWith(search) || x.User.FirstName.StartsWith(search) || 
+                                                     x.User.LastName.StartsWith(search));
+            var booksList = books.ProjectTo<Book>(this.mapper.ConfigurationProvider);
+            return booksList;
+        }
+
         public Book Create(Book book)
         {
             this.logger.LogInformation($"Create book on {nameof(Create)} in BookRepository with book details : {book}");

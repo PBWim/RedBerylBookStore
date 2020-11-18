@@ -17,10 +17,11 @@
             this.bookRepository = bookRepository;
         }
 
-        public IQueryable<Book> Get()
+        public IQueryable<Book> Get(string search)
         {
             this.logger.LogInformation($"Get books on {nameof(Get)} in BookService");
-            var result = this.bookRepository.Get();
+            var result = string.IsNullOrWhiteSpace(search) ? this.bookRepository.Get() :
+                this.bookRepository.Get(search);
             return result;
         }
 

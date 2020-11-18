@@ -13,12 +13,11 @@ export class BooksService {
     this.myAppUrl = baseUrl;
   }
 
-  getBooks(auth_token): Observable<any> {
+  getBooks(searchText): Observable<any> {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
     })
-    return this.http.get(this.myAppUrl + 'api/Books/GetBooks', { headers: headers });
+    return this.http.get(this.myAppUrl + 'api/Books/GetBooks?search=' + searchText, { headers: headers });
   }
 
   getBooksByAuthor(auth_token, userId): Observable<any> {

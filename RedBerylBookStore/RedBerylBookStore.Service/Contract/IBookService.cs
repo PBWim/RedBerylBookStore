@@ -5,7 +5,7 @@
 
     public interface IBookService
     {
-        IQueryable<Book> Get();
+        IQueryable<Book> Get(string search = "");
 
         Book Create(Book book);
     }
