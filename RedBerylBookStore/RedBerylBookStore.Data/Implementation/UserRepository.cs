@@ -33,7 +33,7 @@
         public IQueryable<User> Get(bool isAll)
         {
             this.logger.LogInformation($"Get users on {nameof(Get)} in UserRepository with isAll : {isAll}");
-            var users = isAll ? this.context.Users.IgnoreQueryFilters() : 
+            var users = isAll ? this.context.Users.IgnoreQueryFilters() :
                 this.context.Users.IgnoreQueryFilters().Where(x => x.Role == UserRole.Author);
             var usersList = users.ProjectTo<User>(this.mapper.ConfigurationProvider);
             return usersList;
@@ -56,7 +56,17 @@
             var userObj = this.context.Users.IgnoreQueryFilters().FirstOrDefault(x => x.Id == userId && x.Role == UserRole.Author);
             userObj.IsActive = isActivated;
             var result = await userManager.UpdateAsync(userObj);
-            return result;
+            if (result.Succeeded)
+            {
+                this.logger.LogInformation($"Update user's Books to IsActivated : {isActivated}");
+                var books = this.context.Books.IgnoreQueryFilters().Where(x => x.UserId == userId);
+                await books.ForEachAsync(a => a.IsActive = isActivated);
+                this.context.Books.UpdateRange(books);
+                this.context.SaveChanges();
+                return result;
+            }
+            this.logger.LogWarning($"User on {nameof(Update)} in UserRepository with user Id : {userId} did not get updated");
+            return default;
         }
 
         public async Task<bool> SignIn(string email, string password)
