@@ -6,7 +6,7 @@ import { TokenStorageService } from '../services/token-storage.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit{
-  role: '';
+  role: string;
   name: '';
 
   constructor(private tokenStorage: TokenStorageService) { }
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit{
     if (this.tokenStorage.getToken()) {
       var user = this.tokenStorage.getUser();
       this.name = user.firstName;
-      this.role = user.role;
+      this.role = user.role == 1 ? 'Administrator' : 'Author';
     }
   }
 

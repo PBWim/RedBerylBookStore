@@ -33,10 +33,10 @@
             return result;
         }
 
-        public async Task<IdentityResult> Update(User user)
+        public async Task<IdentityResult> Update(int userId, bool isActivated)
         {
-            this.logger.LogInformation($"Update user on {nameof(Update)} in UserService with user details : {user}");
-            var result = await userRepository.Update(user);
+            this.logger.LogInformation($"Update user on {nameof(Update)} in UserService with user Id : {userId} and isActivated : {isActivated}");
+            var result = await userRepository.Update(userId, isActivated);
             return result;
         }
 

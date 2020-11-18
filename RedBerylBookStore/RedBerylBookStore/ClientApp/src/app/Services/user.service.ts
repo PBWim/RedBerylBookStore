@@ -1,29 +1,39 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-
-const API_URL = 'http://localhost:8080/api/test/';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  constructor(private http: HttpClient) { }
+  myAppUrl: string = "";
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  constructor(private http: Http, @Inject('BASE_URL') baseUrl: string) {
+    this.myAppUrl = baseUrl;
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  getAuthors(auth_token): Observable<any> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    })
+    return this.http.get(this.myAppUrl + 'api/User/GetAuthors', { headers: headers });
   }
 
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { responseType: 'text' });
+  activateAuthor(auth_token, userId): Observable<any> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    })
+    return this.http.get(this.myAppUrl + 'api/User/ActivateAuthor?userId=' + userId, { headers: headers });
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  deactivateAuthor(auth_token, userId): Observable<any> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    })
+    return this.http.get(this.myAppUrl + 'api/User/DeactivateAuthor?userId=' + userId, { headers: headers });
   }
 }

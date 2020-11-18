@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RedBerylBookStore.ServiceModels\RedBerylBookStore.ServiceModels.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,7 @@
 ﻿namespace RedBerylBookStore.ServiceModels
 {
     using System.Collections.Generic;
+    using Common.Enums;
 
     public class User
     {
@@ -10,7 +11,7 @@
 
         public string LastName { get; set; }
 
-        public string Role { get; set; }
+        public UserRole Role { get; set; }
 
         public string Password { get; set; }
 

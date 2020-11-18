@@ -20,6 +20,14 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
 
+  isAdmin(): boolean {
+    return this.tokenStorage.getToken() != null && this.tokenStorage.getUser().role == 1 ? true : false;
+  }
+
+  isAuthor(): boolean {
+    return this.tokenStorage.getToken() != null && this.tokenStorage.getUser().role == 2 ? true : false;
+  }
+
   isLoggedIn(): boolean {
     return this.tokenStorage.getToken() == null ? false : true;
   }

@@ -11,7 +11,7 @@
 
         Task<IdentityResult> Create(BO.User user);
 
-        Task<IdentityResult> Update(BO.User user);
+        Task<IdentityResult> Update(int userId, bool isActivated);
 
         Task<bool> SignIn(string email, string password);
     }

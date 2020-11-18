@@ -8,7 +8,6 @@
     using System.Text;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Common.Enums;
     using Helpers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -20,6 +19,7 @@
     using Shared.Domain;
 
     [ApiController]
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly IUserService userService;
@@ -37,7 +37,6 @@
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Route("api/Account/Login")]
         public async Task<ActionResult> Login([FromBody]LoginModel model)
         {
@@ -55,7 +54,7 @@
                 {
                     this.logger.LogInformation($"JWT Token created User Model : {model}");
                     var user = this.userService.Get(true).FirstOrDefault(x => x.Email == model.Email);
-                    var tokenString = this.GenerateJSONWebToken(model);
+                    var tokenString = this.GenerateJSONWebToken(user);
                     return Ok(ApiResponse.OK(new { accessToken = tokenString, loggedUser = user }));
                 }
                 this.logger.LogWarning($"Invalid User Login of User Model : {model}");
@@ -67,7 +66,6 @@
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Route("api/Account/Register")]
         public async Task<ActionResult> Register([FromBody]UserModel model)
         {
@@ -97,14 +95,18 @@
             return BadRequest("Invalid User Model");
         }
 
-        private string GenerateJSONWebToken(LoginModel userInfo)
+        private string GenerateJSONWebToken(User userInfo)
         {
             this.logger.LogInformation($"Generate JWT Token for User {userInfo}");
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(this.configuration["Jwt:Issuer"],
               this.configuration["Jwt:Issuer"],
-              new List<Claim>(),
+              new List<Claim>() {
+                  new Claim(ClaimTypes.Name, $"{userInfo.FirstName} {userInfo.LastName}"),
+                  new Claim(ClaimTypes.Email, userInfo.Email),
+                  new Claim(ClaimTypes.Role, userInfo.Role.ToString())
+              },
               expires: DateTime.Now.AddMinutes(120), // 2 hours
               signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);

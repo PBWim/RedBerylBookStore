@@ -9,6 +9,7 @@
     using Common.SystemConstants;
     using Contract;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using RedBerylBookStore.ServiceModels;
     using DO = DataModels;
@@ -32,7 +33,8 @@
         public IQueryable<User> Get(bool isAll)
         {
             this.logger.LogInformation($"Get users on {nameof(Get)} in UserRepository with isAll : {isAll}");
-            var users = isAll ? this.context.Users : this.context.Users.Where(x => x.Role == UserRole.Author);
+            var users = isAll ? this.context.Users.IgnoreQueryFilters() : 
+                this.context.Users.IgnoreQueryFilters().Where(x => x.Role == UserRole.Author);
             var usersList = users.ProjectTo<User>(this.mapper.ConfigurationProvider);
             return usersList;
         }
@@ -48,10 +50,11 @@
             return result;
         }
 
-        public async Task<IdentityResult> Update(User user)
+        public async Task<IdentityResult> Update(int userId, bool isActivated)
         {
-            this.logger.LogInformation($"Update user on {nameof(Update)} in UserRepository with user details : {user}");
-            var userObj = this.mapper.Map<DO.User>(user);
+            this.logger.LogInformation($"Update user on {nameof(Update)} in UserRepository with user Id : {userId} and IsActivated : {isActivated}");
+            var userObj = this.context.Users.IgnoreQueryFilters().FirstOrDefault(x => x.Id == userId && x.Role == UserRole.Author);
+            userObj.IsActive = isActivated;
             var result = await userManager.UpdateAsync(userObj);
             return result;
         }

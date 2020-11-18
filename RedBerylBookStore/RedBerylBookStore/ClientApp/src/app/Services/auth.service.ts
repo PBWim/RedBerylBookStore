@@ -2,12 +2,11 @@ import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 
 export class AuthService {
   myAppUrl: string = "";
+
   constructor(private http: Http, @Inject('BASE_URL') baseUrl: string) {
     this.myAppUrl = baseUrl;
   }
@@ -22,13 +21,15 @@ export class AuthService {
   }
 
   register(user): Observable<any> {
-    return this.http.post(this.myAppUrl + 'api/Account/Register', {
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      role: "Author",
-      isActive: true
-    });
+    return this.http.post(this.myAppUrl + 'api/Account/Register',
+      {
+        email: user.email,
+        password: user.password,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: "Author",
+        isActive: true
+      }
+    );
   }
 }

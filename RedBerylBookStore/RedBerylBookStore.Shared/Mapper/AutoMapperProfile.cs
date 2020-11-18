@@ -17,7 +17,8 @@
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => $"{src.FirstName}.{src.LastName}"))
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
                 .ForMember(des => des.Books, opt => opt.MapFrom(src => src.Books))
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(dest => dest.Password, opt => opt.Ignore());
         }
     }
 }
