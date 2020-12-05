@@ -40,6 +40,13 @@
             return result;
         }
 
+        public async Task<IdentityResult> Update(User user)
+        {
+            this.logger.LogInformation($"Update user on {nameof(Update)} in UserService with user details : {user}");
+            var result = await userRepository.Update(user);
+            return result;
+        }
+
         public async Task<bool> SignIn(string email, string password)
         {
             this.logger.LogInformation($"User sign in on {nameof(SignIn)} in UserService with Email : {email}");

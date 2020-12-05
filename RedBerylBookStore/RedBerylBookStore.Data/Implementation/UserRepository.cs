@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
+    using RedBerylBookStore.ServiceModels;
     using ServiceModels;
     using DO = DataModels;
 
@@ -66,6 +67,22 @@
                 return result;
             }
             this.logger.LogWarning($"User on {nameof(Update)} in UserRepository with user Id : {userId} did not get updated");
+            return default;
+        }
+
+        public async Task<IdentityResult> Update(User user)
+        {
+            this.logger.LogInformation($"Update user on {nameof(Update)} in UserRepository with user data : {user}");
+            var userObj = this.context.Users.IgnoreQueryFilters().FirstOrDefault(x => x.Id == user.Id && x.Role == UserRole.Author);
+            userObj.FirstName = user.FirstName;
+            userObj.LastName = user.LastName;
+            var result = await userManager.UpdateAsync(userObj);
+            if (result.Succeeded)
+            {
+                this.logger.LogInformation($"User : {user} updated successfully");
+                return result;
+            }
+            this.logger.LogWarning($"User on {nameof(Update)} in UserRepository with user data : {user} did not get updated");
             return default;
         }
 

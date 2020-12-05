@@ -13,6 +13,8 @@
 
         Task<IdentityResult> Update(int userId, bool isActivated);
 
+        Task<IdentityResult> Update(User user);
+
         Task<bool> SignIn(string email, string password);
     }
 }

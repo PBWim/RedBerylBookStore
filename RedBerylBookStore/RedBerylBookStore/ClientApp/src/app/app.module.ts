@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { BooksComponent } from './books/books.component';
 import { NewBookComponent } from './new-book/new-book.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NewBookComponent } from './new-book/new-book.component';
     RegisterComponent,
     AuthorsComponent,
     BooksComponent,
-    NewBookComponent
+    NewBookComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,6 +39,7 @@ import { NewBookComponent } from './new-book/new-book.component';
       { path: 'view-authors', component: AuthorsComponent },
       { path: 'view-books', component: BooksComponent },
       { path: 'new-book', component: NewBookComponent },
+      { path: 'profile', component: ProfileComponent },
     ])
   ],
   providers: [],

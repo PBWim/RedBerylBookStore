@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using ServiceModels;
     using Service.Contract;
     using Shared.Domain;
 
@@ -34,6 +35,28 @@
             var authors = this.userService.Get(false);
             var usersObj = authors.ProjectTo<UserModel>(this.mapper.ConfigurationProvider);
             return Ok(ApiResponse.OK(new { usersObj }));
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("api/User/UpdateUser")]
+        public async Task<ActionResult> UpdateUser([FromBody]UserModel model)
+        {
+            if (model == null || model.Id <= 0 || !ModelState.IsValid)
+            {
+                this.logger.LogWarning($"The Account {nameof(this.UpdateUser)} action has been accessed with Invalid User Model : {model}");
+                return BadRequest(ApiResponse.BadRequest("Invalid User Model"));
+            }
+            this.logger.LogInformation($"The User {nameof(this.UpdateUser)} action has been accessed");
+            var userObj = this.mapper.Map<User>(model);
+            var result = await this.userService.Update(userObj);
+            if (result.Succeeded)
+            {
+                this.logger.LogInformation($"User updated successfully : {userObj}");
+                return this.Ok(true);
+            }
+            this.logger.LogWarning($"User did not get updated : {userObj}");
+            return this.BadRequest(result.Errors);
         }
 
         [HttpGet]

@@ -36,4 +36,21 @@ export class UserService {
     })
     return this.http.get(this.myAppUrl + 'api/User/DeactivateAuthor?userId=' + userId, { headers: headers });
   }
+
+  updateUser(auth_token, user): Observable<any> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    })
+    return this.http.put(this.myAppUrl + 'api/User/UpdateUser',
+      {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password
+      },
+      { headers: headers });
+  }
+
 }

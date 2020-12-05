@@ -23,9 +23,12 @@
           <li *ngIf="isAuthor()" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a class="nav-link text-dark" [routerLink]='["/view-books"]'>Your Store</a>
           </li>
+          <li *ngIf="isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="nav-link text-dark" [routerLink]='["/profile"]'>My Profile</a>
+          </li>
           <li *ngIf="isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
               (click)="logout()">
-            <a class="nav-link text-dark" [routerLink]='["/register"]'>Log Out</a>
+            <a class="nav-link text-dark">Log Out</a>
           </li>
         </ul>
       </div>
