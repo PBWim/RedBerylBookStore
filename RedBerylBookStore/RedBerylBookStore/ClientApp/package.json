@@ -1,5 +1,6 @@
 {
   "name": "RedBerylBookStore",
+  "description": "https://www.c-sharpcorner.com/article/learn-angular-8-step-by-step-in-10-days-day-1/ - package.json is basically a JSON file that contains all information related to the required packages for the project. Also, with the help of this configuration files, we can maintain the Project Name and its related version by using the “name” and “version” property. Also, we can provide the build definition of the project using this file.",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

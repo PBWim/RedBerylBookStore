@@ -1,4 +1,8 @@
 {
+  // https://www.c-sharpcorner.com/article/learn-angular-8-step-by-step-in-10-days-day-1/
+  // angular.json file is an Angular Application Environment based JSON file which contains
+  // all the information related to the project build and deployment. It tells the system
+  // which files need to change when we use ng build or ng serve command. 
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",

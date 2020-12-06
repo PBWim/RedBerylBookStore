@@ -1,4 +1,9 @@
 {
+  // https://www.c-sharpcorner.com/article/learn-angular-8-step-by-step-in-10-days-day-1/
+  // If tsconfig.json files exist within the project root folder,
+  // that means that the project is a basically TypeScript project.
+  // The tsconfig.json file specifies the root files and the compiler options
+  // required to compile the project.
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",

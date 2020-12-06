@@ -3,14 +3,20 @@
     <div class="container">
       <a class="navbar-brand" [routerLink]='["/"]'>RedBeryl Book Store</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded" (click)="toggle()">
+              [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
+
+      <!--https://www.c-sharpcorner.com/article/learn-angular-8-step-by-step-in-10-days-directives-day-4/-->
+      <!--ngClass directive changes the class attribute that is bound to the component or element it's attached to.-->
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
           </li>
+
+          <!--// In-Built Attribute Directive : ngIf-->
           <li *ngIf="!isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a class="nav-link text-dark" [routerLink]='["/login"]'>Login</a>
           </li>
